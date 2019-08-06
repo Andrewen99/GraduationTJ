@@ -25,7 +25,7 @@ public class UserService {
     }
 
     public void delete(int id) throws NotFoundException {
-        checkNotFoundWithId(repository.get(id), id);
+        checkNotFoundWithId(repository.delete(id), id);
     }
 
     public User get(int id) throws NotFoundException {

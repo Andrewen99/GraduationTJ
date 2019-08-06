@@ -43,16 +43,21 @@ public class User extends AbstractNamedEntity {
     public User() {
     }
 
-    public User(int id, String name, String email, String password, boolean enabled, Set<Role> roles) {
+    public User(Integer id, String name, String email, String password, boolean enabled,  Date registered, Set<Role> roles) {
         super(id,name);
         this.email = email;
         this.password = password;
         this.enabled = enabled;
+        this.registered = registered;
         this.roles = roles;
     }
 
-    public User(int id, String name, String email, String password, boolean enabled, Role role, Role... roles) {
-        this(id, name, email, password, enabled, EnumSet.of(role, roles));
+    public User(Integer id, String name, String email, String password, Role role, Role... roles) {
+        this(id, name, email, password, true, new Date(), EnumSet.of(role, roles));
+    }
+
+    public User(User user) {
+        this(user.getId(), user.getName(), user.getEmail(), user.getPassword(), user.isEnabled(), user.getRegistered(), user.getRoles());
     }
 
     public String getEmail() {
@@ -85,6 +90,10 @@ public class User extends AbstractNamedEntity {
 
     public void setRoles(Collection<Role> roles) {
         this.roles = CollectionUtils.isEmpty(roles) ? EnumSet.noneOf(Role.class) : EnumSet.copyOf(roles);
+    }
+
+    public Date getRegistered() {
+        return registered;
     }
 
     @Override
