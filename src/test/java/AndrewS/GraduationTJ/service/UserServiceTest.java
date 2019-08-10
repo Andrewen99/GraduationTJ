@@ -3,26 +3,26 @@ package AndrewS.GraduationTJ.service;
 import AndrewS.GraduationTJ.model.Role;
 import AndrewS.GraduationTJ.model.User;
 import AndrewS.GraduationTJ.util.exception.NotFoundException;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static AndrewS.GraduationTJ.UserTestData.*;
 
-@ContextConfiguration({
+@SpringJUnitConfig( locations = {
         "classpath:spring/spring-app.xml",
         "classpath:spring/spring-db.xml"
 })
-@RunWith(SpringRunner.class)
+
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
 public class UserServiceTest {
 
@@ -45,9 +45,10 @@ public class UserServiceTest {
         assertMatch(userService.get(USER_ID),updated);
     }
 
-    @Test(expected = DataAccessException.class)
+    @Test
     public void duplicateMailCreate() throws Exception {
-        userService.create(new User(null, "duplicate", "user@yandex.ru", "password", Role.ROLE_USER));
+        assertThrows( DataAccessException.class, () ->
+        userService.create(new User(null, "duplicate", "user@yandex.ru", "password", Role.ROLE_USER)));
     }
 
     @Test
@@ -56,9 +57,10 @@ public class UserServiceTest {
         assertMatch(userService.getAll(), ADMIN);
     }
 
-    @Test(expected = NotFoundException.class)
+    @Test
     public void deleteNotFound() throws Exception {
-        userService.delete(1);
+        assertThrows(NotFoundException.class, () ->
+                userService.delete(1));
     }
 
     @Test
@@ -73,9 +75,10 @@ public class UserServiceTest {
         assertMatch(all, ADMIN, USER);
     }
 
-    @Test(expected = NotFoundException.class)
+    @Test
     public void getNotFound() throws Exception {
-        userService.get(1);
+        assertThrows(NotFoundException.class, () ->
+                userService.get(1));
     }
 
     @Test
