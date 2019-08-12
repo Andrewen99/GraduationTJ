@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 public interface CrudRestaurantRepository extends JpaRepository<Restaurant, Integer> {
     @Modifying
     @Transactional
-    @Query("DELETE FROM User u WHERE u.id=:id")
+    @Query("DELETE FROM Restaurant r WHERE r.id=:id")
     int delete(@Param("id") int id);
 
 
