@@ -12,6 +12,8 @@ public class RestaurantTestData {
 
     public static final Restaurant RES1 = new Restaurant(RES1_ID,"Tokio City Restaurant");
     public static final Restaurant RES2 = new Restaurant(RES1_ID + 1, "Yakitoria Restaurant");
+    public static final Restaurant RES3 = new Restaurant(RES1_ID + 2, "Restaurant With Food");
+
 
     public static void assertMatch(Restaurant actual, Restaurant expected) {
         assertThat(actual).isEqualToIgnoringGivenFields(expected, "votes", "dishes");

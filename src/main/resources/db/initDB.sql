@@ -40,7 +40,7 @@ CREATE TABLE res_dishes
     name             VARCHAR                 NOT NULL,
     price            INTEGER                 NOT NULL,
     res_id           INTEGER                 NOT NULL,
-    date             TIMESTAMP DEFAULT now() NOT NULL,
+    date             TIMESTAMP               NOT NULL,
     UNIQUE (res_id, name),
     FOREIGN KEY (res_id) REFERENCES restaurants (id) ON DELETE CASCADE
 );

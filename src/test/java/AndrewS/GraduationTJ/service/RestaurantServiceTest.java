@@ -1,5 +1,6 @@
 package AndrewS.GraduationTJ.service;
 
+import AndrewS.GraduationTJ.DishTestData;
 import AndrewS.GraduationTJ.model.Restaurant;
 import org.assertj.core.condition.Not;
 import org.junit.jupiter.api.Test;
@@ -30,7 +31,7 @@ class RestaurantServiceTest {
           Restaurant created = service.create(newRes);
           newRes.setId(created.getId());
           assertMatch(newRes, created);
-          assertMatch(service.getAll(), RES1, RES2, newRes);
+          assertMatch(service.getAll(), RES1, RES2,RES3, newRes);
     }
 
     @Test
@@ -44,7 +45,7 @@ class RestaurantServiceTest {
     @Test
     void delete() throws Exception {
         service.delete(RES1_ID);
-        assertMatch(service.getAll(),RES2);
+        assertMatch(service.getAll(),RES2,RES3);
     }
 
     @Test
@@ -62,7 +63,7 @@ class RestaurantServiceTest {
     @Test
     void getAll() throws Exception {
         List<Restaurant> all = service.getAll();
-        assertMatch(all,RES1, RES2);
+        assertMatch(all,RES1, RES2,RES3);
     }
 
     @Test
@@ -73,6 +74,8 @@ class RestaurantServiceTest {
 
     @Test
     void getWithDishes() throws Exception {
-
+        Restaurant actualRes = service.getWithDishes(RES3.getId());
+        assertMatch(actualRes, RES3);
+        DishTestData.assertMatch(actualRes.getDishes(), DishTestData.DISH1, DishTestData.DISH2, DishTestData.DISH3);
     }
 }

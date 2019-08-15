@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @Table(name = "res_dishes")
 public class Dish extends AbstractNamedEntity {
 
-    @Column(name = "date", nullable = false, columnDefinition =  "timestamp default now()")
+    @Column(name = "date", nullable = false)
     @NotNull
     private LocalDate date;
 
@@ -26,19 +26,24 @@ public class Dish extends AbstractNamedEntity {
     private Restaurant restaurant;
 
 
-    public Dish(Integer id, String name, LocalDate date, int price, Restaurant restaurant) {
+    public Dish(Integer id, String name, LocalDate date, int price) {
         super(id, name);
         this.date = date;
         this.price = price;
-        this.restaurant = restaurant;
     }
 
     public Dish(Integer id, String name) {
         super(id, name);
     }
 
+    public Dish(Dish dish) {
+        this(dish.getId(), dish.getName(), dish.getDate(), dish.getPrice());
+    }
+
     public Dish() {
     }
+
+
 
     public LocalDate getDate() {
         return date;
@@ -62,5 +67,14 @@ public class Dish extends AbstractNamedEntity {
 
     public void setRestaurant(Restaurant restaurant) {
         this.restaurant = restaurant;
+    }
+
+    @Override
+    public String toString() {
+        return "Dish{" +
+                "id = " + id +
+                ", date = " + date +
+                ", name = " + name +
+                ", price = " + price;
     }
 }

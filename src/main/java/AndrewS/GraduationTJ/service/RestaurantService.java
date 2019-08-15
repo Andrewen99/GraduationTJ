@@ -15,7 +15,7 @@ import static AndrewS.GraduationTJ.util.ValidationUtil .checkNotFoundWithId;
 public class RestaurantService {
 
     @Autowired
-    RestaurantRepository restaurantRepository;
+    private RestaurantRepository restaurantRepository;
 
     public Restaurant create(Restaurant restaurant) {
         Assert.notNull(restaurant,"restaurant must not be null");

@@ -39,6 +39,10 @@ public class DishRepository {
         return dishRepository.getAll(resId);
     }
 
+    public List<Dish> getAll() {
+        return dishRepository.findAll();
+    }
+
 
 
 }
