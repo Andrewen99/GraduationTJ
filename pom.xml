@@ -33,6 +33,8 @@
         <!--    Tests  -->
         <junit.jupiter.version>5.5.1</junit.jupiter.version>
         <hamcrest.version>1.3</hamcrest.version>
+
+        <jackson-json.version>2.9.9</jackson-json.version>
     </properties>
 
     <build>
@@ -144,6 +146,11 @@
             <version>2.4.0-b180830.0438</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+        </dependency>
+
         <!--Test-->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -170,6 +177,23 @@
             <artifactId>assertj-core</artifactId>
             <version>3.12.2</version>
             <scope>test</scope>
+        </dependency>
+
+        <!--JSON-->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson-json.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-hibernate5</artifactId>
+            <version>${jackson-json.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+            <version>${jackson-json.version}</version>
         </dependency>
 
     </dependencies>

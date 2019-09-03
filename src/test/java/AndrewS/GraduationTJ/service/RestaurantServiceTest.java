@@ -2,7 +2,6 @@ package AndrewS.GraduationTJ.service;
 
 import AndrewS.GraduationTJ.DishTestData;
 import AndrewS.GraduationTJ.model.Restaurant;
-import org.assertj.core.condition.Not;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.jdbc.Sql;

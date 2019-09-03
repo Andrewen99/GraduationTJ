@@ -51,7 +51,7 @@ CREATE TABLE votes
     date             TIMESTAMP DEFAULT now() NOT NULL,
     user_id          INTEGER                 NOT NULL,
     res_id           INTEGER                 NOT NULL,
-    UNIQUE (res_id,user_id),
+    UNIQUE (user_id, date),
     FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
     FOREIGN KEY (res_id) REFERENCES restaurants (id) ON DELETE CASCADE
 );

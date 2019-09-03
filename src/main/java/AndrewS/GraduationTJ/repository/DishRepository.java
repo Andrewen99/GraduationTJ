@@ -5,6 +5,7 @@ import AndrewS.GraduationTJ.model.Dish;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -35,6 +36,11 @@ public class DishRepository {
         return dishRepository.delete(id) != 0;
     }
 
+    public List<Dish> getInDateByRestaurant(LocalDate date, int resId) {
+        return dishRepository.getInDateByRestaurant(date, resId);
+    }
+
+
     public List<Dish> getAll(int resId) {
         return dishRepository.getAll(resId);
     }
@@ -42,6 +48,8 @@ public class DishRepository {
     public List<Dish> getAll() {
         return dishRepository.findAll();
     }
+
+
 
 
 

@@ -11,6 +11,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static AndrewS.GraduationTJ.DishTestData.*;
@@ -66,6 +67,12 @@ class DishServiceTest {
     void getNotFound() {
         assertThrows(NotFoundException.class, () ->
                 dishService.get(1));
+    }
+
+    @Test
+    void getInDateByRestaurant() {
+        List<Dish> dishes = dishService.getInDateByRestaurant(LocalDate.of(2019,8,15), RES3.getId());
+        assertMatch(dishes, DISH3);
     }
 
     @Test

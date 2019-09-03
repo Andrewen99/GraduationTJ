@@ -21,7 +21,7 @@ public class DishTestData {
 
     public static final Dish DISH1 = new Dish(DISH1_ID,"steak",LocalDate.of(2019,8,29),9);
     public static final Dish DISH2 = new Dish(DISH1_ID + 1,"chicken",LocalDate.of(2019,8,29),11);
-    public static final Dish DISH3 = new Dish(DISH1_ID + 2,"california roll",LocalDate.of(2019,8,29),5);
+    public static final Dish DISH3 = new Dish(DISH1_ID + 2,"california roll",LocalDate.of(2019,8,15),5);
 
 
     public static Dish getCreated() {
