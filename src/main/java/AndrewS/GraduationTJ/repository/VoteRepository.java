@@ -40,4 +40,6 @@ public class VoteRepository {
     public Vote getInDateByUser(LocalDate date, int userId) {
         return voteRepository.getInDateByUser(date, userId);
     }
+
+
 }

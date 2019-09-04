@@ -13,7 +13,7 @@ public class RestaurantTo {
 
     private Integer countOfVotes;
 
-    private List<Dish> dishes;
+    private List<DishTo> dishes;
 
 
     public RestaurantTo(Integer id, String name, Integer countOfVotes) {
@@ -51,11 +51,11 @@ public class RestaurantTo {
         this.countOfVotes = countOfVotes;
     }
 
-    public List<Dish> getDishes() {
+    public List<DishTo> getDishes() {
         return dishes;
     }
 
-    public void setDishes(List<Dish> dishes) {
+    public void setDishes(List<DishTo> dishes) {
         this.dishes = dishes;
     }
 

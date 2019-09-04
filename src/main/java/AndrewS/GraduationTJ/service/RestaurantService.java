@@ -2,11 +2,18 @@ package AndrewS.GraduationTJ.service;
 
 import AndrewS.GraduationTJ.model.Restaurant;
 import AndrewS.GraduationTJ.repository.RestaurantRepository;
+import AndrewS.GraduationTJ.repository.VoteRepository;
+import AndrewS.GraduationTJ.to.RestaurantTo;
+import AndrewS.GraduationTJ.util.restaurant.RestaurantUtil;
+import net.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import AndrewS.GraduationTJ.util.exception.NotFoundException;
 import org.springframework.util.Assert;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 
@@ -16,6 +23,13 @@ public class RestaurantService {
 
     @Autowired
     private RestaurantRepository restaurantRepository;
+
+    @Autowired
+    private VoteRepository voteRepository;
+
+    @Autowired
+    private DishService dishService;
+
 
     public Restaurant create(Restaurant restaurant) {
         Assert.notNull(restaurant,"restaurant must not be null");
@@ -42,5 +56,34 @@ public class RestaurantService {
     public Restaurant getWithDishes(int id) {
         return restaurantRepository.getWithDishes(id);
     }
+
+    public RestaurantTo getInDateWithDishes(LocalDate date, int id) {
+        Restaurant restaurant = get(id);
+        RestaurantTo restaurantTo = new RestaurantTo(restaurant.getId(), restaurant.getName());
+        restaurantTo.setDishes(dishService.getInDateByRestaurant(date, id));
+        return restaurantTo;
+    }
+
+    public RestaurantTo getWithVotes(int id, LocalDate date) {
+        Restaurant restaurant = restaurantRepository.getWithVotes(id);
+        return RestaurantUtil.getWithFilteredCountOfVotes(restaurant,date);
+    }
+
+    public List<RestaurantTo> getAllWithVotes(LocalDate date) {
+        List<Restaurant> restaurants = restaurantRepository.getAllWithVotes();
+        return RestaurantUtil.getAllWithFilteredCountOfVotes(restaurants, date);
+    }
+
+    public List<RestaurantTo> getRestaurantsWithScore(int userId) {
+        LocalDateTime now = LocalDateTime.now();
+        if(voteRepository.getInDateByUser(now.toLocalDate(),userId)!=null && now.toLocalTime().isAfter(LocalTime.of(11,0))){
+            return getAllWithVotes(now.toLocalDate());
+        }
+        else {
+            return null;
+        }
+    }
+
+
 
 }

@@ -33,7 +33,8 @@ public class VoteService {
         return voteRepository.save(vote, userId, resId);
     }
 
-    public void update(Vote vote, int userId, int resId) throws Exception {
+    public void update(int voteId, int userId, int resId) throws Exception {
+        Vote vote = get(voteId);
         Assert.notNull(vote,"vote must not be null");
         LocalDateTime now = LocalDateTime.now();
         LocalDate voteDate = vote.getDate();
@@ -61,6 +62,7 @@ public class VoteService {
     public Vote getInDateByUser(LocalDate date, int userId) {
         return voteRepository.getInDateByUser(date, userId);
     }
+
 
 
 }

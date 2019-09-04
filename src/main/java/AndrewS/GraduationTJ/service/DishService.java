@@ -3,6 +3,7 @@ package AndrewS.GraduationTJ.service;
 import AndrewS.GraduationTJ.model.Dish;
 import AndrewS.GraduationTJ.model.Restaurant;
 import AndrewS.GraduationTJ.repository.DishRepository;
+import AndrewS.GraduationTJ.to.DishTo;
 import AndrewS.GraduationTJ.util.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +11,7 @@ import org.springframework.util.Assert;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static AndrewS.GraduationTJ.util.ValidationUtil.checkNotFoundWithId;
 
@@ -37,8 +39,11 @@ public class DishService {
         return checkNotFoundWithId(repository.get(id), id);
     }
 
-    public List<Dish> getInDateByRestaurant(LocalDate date, int resId) {
-        return repository.getInDateByRestaurant(date, resId);
+    public List<DishTo> getInDateByRestaurant(LocalDate date, int resId) {
+        return repository.getInDateByRestaurant(date, resId)
+                .stream()
+                .map(dish -> new DishTo(dish.getId(), dish.getName(), dish.getPrice()))
+                .collect(Collectors.toList());
     }
 
     public List<Dish> getAll(int resId) {

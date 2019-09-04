@@ -32,4 +32,13 @@ public class RestaurantRepository {
     public Restaurant getWithDishes(int id) {
         return repository.getWithDishes(id);
     }
+
+    public Restaurant getWithVotes(int id) {
+        return repository.getWithVotes(id);
+    }
+    public List<Restaurant> getAllWithVotes() {
+        return repository.getAllWithVotes();
+    }
+
+
 }

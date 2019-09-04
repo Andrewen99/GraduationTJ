@@ -54,12 +54,12 @@ public class VoteServiceTest {
                 throw new VoteExpiredException("You can't change your mind after 11");
             }
 
-            voteService.update(VOTE1, VOTE1.getVoter().getId(), RES1.getId());
+            voteService.update(VOTE1.getId(), VOTE1.getVoter().getId(), RES1.getId());
             assertMatch(voteService.get(VOTE1_ID), VOTE1_UPDATED);
 
         } catch (VoteExpiredException v) {
             assertThrows(VoteExpiredException.class, () ->
-                    voteService.update(VOTE1, VOTE1.getVoter().getId(), RES1.getId()));
+                    voteService.update(VOTE1.getId(), VOTE1.getVoter().getId(), RES1.getId()));
         }
     }
 

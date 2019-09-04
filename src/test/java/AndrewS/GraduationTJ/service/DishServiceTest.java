@@ -69,11 +69,11 @@ class DishServiceTest {
                 dishService.get(1));
     }
 
-    @Test
-    void getInDateByRestaurant() {
-        List<Dish> dishes = dishService.getInDateByRestaurant(LocalDate.of(2019,8,15), RES3.getId());
-        assertMatch(dishes, DISH3);
-    }
+//    @Test
+//    void getInDateByRestaurant() {
+//        List<Dish> dishes = dishService.getInDateByRestaurant(LocalDate.of(2019,8,15), RES3.getId());
+//        assertMatch(dishes, DISH3);
+//    }
 
     @Test
     void getAll() throws Exception {
