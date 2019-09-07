@@ -48,8 +48,9 @@ public class UserRestController {
     }
 
     @PutMapping("/{id}/{voteId}")
-    public void updateVote(@PathVariable(name = "id") int resId,@PathVariable int voteId) throws Exception {
-        voteService.update(voteId, SecurityUtil.authUserId(), resId );
+    public void updateVote(@PathVariable(name = "id") int resId,@PathVariable int voteId) throws Exception{
+
+        voteService.update(voteId, SecurityUtil.authUserId(),resId);
     }
 
 

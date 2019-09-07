@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 public class RestaurantUtil {
 
-    public RestaurantTo getWithDishesInDate(Restaurant restaurant, LocalDate date) {
+    public static RestaurantTo getWithFilteredInDateDishes(Restaurant restaurant, LocalDate date) {
         RestaurantTo restaurantTo = new RestaurantTo(restaurant.getId(), restaurant.getName());
 
         restaurantTo.setDishes(restaurant.getDishes()

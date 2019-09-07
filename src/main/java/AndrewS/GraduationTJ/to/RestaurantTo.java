@@ -1,6 +1,7 @@
 package AndrewS.GraduationTJ.to;
 
 import AndrewS.GraduationTJ.model.Dish;
+import AndrewS.GraduationTJ.model.Restaurant;
 
 import java.util.List;
 import java.util.Objects;
@@ -11,7 +12,7 @@ public class RestaurantTo {
 
     private String name;
 
-    private Integer countOfVotes;
+    private int countOfVotes;
 
     private List<DishTo> dishes;
 
@@ -25,6 +26,10 @@ public class RestaurantTo {
     public RestaurantTo(Integer id, String name) {
         this.id = id;
         this.name = name;
+    }
+
+    public RestaurantTo() {
+
     }
 
     public Integer getId() {
@@ -43,11 +48,11 @@ public class RestaurantTo {
         this.name = name;
     }
 
-    public Integer getCountOfVotes() {
+    public int getCountOfVotes() {
         return countOfVotes;
     }
 
-    public void setCountOfVotes(Integer countOfVotes) {
+    public void setCountOfVotes(int countOfVotes) {
         this.countOfVotes = countOfVotes;
     }
 
@@ -76,7 +81,8 @@ public class RestaurantTo {
     public String toString() {
         return "RestaurantTo{" +
                 "id = " + id +
-                ", name = " + name
-                +"}";
+                ", name = " + name +
+                ", VoteCount = " + countOfVotes
+                + "}";
     }
 }

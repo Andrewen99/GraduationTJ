@@ -39,12 +39,15 @@ public class VoteService {
         LocalDateTime now = LocalDateTime.now();
         LocalDate voteDate = vote.getDate();
 
+
         if (    vote.getVoter().getId() == userId &&
                 now.toLocalDate().equals(voteDate) &&
                 now.toLocalTime().isBefore(LocalTime.of(11,0))
             ) {
             checkNotFoundWithId(voteRepository.save(vote, userId, resId), vote.getId());
-        } else throw new VoteExpiredException("You can't vote after 11 o'clock");
+        } else {
+            throw new VoteExpiredException("You can't vote again after 11 o'clock");
+        }
     }
 
     public void delete(int id) throws NotFoundException {

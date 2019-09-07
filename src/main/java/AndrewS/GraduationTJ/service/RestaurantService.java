@@ -16,6 +16,8 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
+import static AndrewS.GraduationTJ.util.restaurant.RestaurantUtil.getWithFilteredInDateDishes;
+
 
 import static AndrewS.GraduationTJ.util.ValidationUtil .checkNotFoundWithId;
 @Service
@@ -58,9 +60,8 @@ public class RestaurantService {
     }
 
     public RestaurantTo getInDateWithDishes(LocalDate date, int id) {
-        Restaurant restaurant = get(id);
-        RestaurantTo restaurantTo = new RestaurantTo(restaurant.getId(), restaurant.getName());
-        restaurantTo.setDishes(dishService.getInDateByRestaurant(date, id));
+        Restaurant restaurant = getWithDishes(id);
+        RestaurantTo restaurantTo = getWithFilteredInDateDishes(restaurant, date);
         return restaurantTo;
     }
 
