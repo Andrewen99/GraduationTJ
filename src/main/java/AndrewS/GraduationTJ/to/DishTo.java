@@ -1,12 +1,15 @@
 package AndrewS.GraduationTJ.to;
 
 
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class DishTo {
     private Integer id;
     private String name;
     private int price;
+
+    private LocalDate date;
 
     public DishTo(Integer id, String name, int price) {
         this.id = id;
@@ -35,6 +38,18 @@ public class DishTo {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
     @Override

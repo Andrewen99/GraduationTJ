@@ -36,6 +36,11 @@ public class RestaurantRepository {
     public Restaurant getWithVotes(int id) {
         return repository.getWithVotes(id);
     }
+
+    public Restaurant getWithDishesAndVotes(int id) {
+        return  repository.getWithDishesAndVotes(id);
+    }
+
     public List<Restaurant> getAllWithVotes() {
         return repository.getAllWithVotes();
     }

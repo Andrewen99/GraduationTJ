@@ -40,9 +40,8 @@ class DishServiceTest {
 
     @Test
     void update() throws Exception  {
-        Dish updated = getUpdated();
-        dishService.update(updated,RES3.getId());
-        assertMatch(dishService.get(DISH1_ID),updated);
+        dishService.update(DISH1_UPDATED,RES3.getId());
+        assertMatch(dishService.get(DISH1_ID),DISH1_UPDATED);
     }
 
     @Test

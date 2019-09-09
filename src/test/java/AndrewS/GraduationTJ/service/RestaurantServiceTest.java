@@ -75,6 +75,6 @@ class RestaurantServiceTest {
     void getWithDishes() throws Exception {
         Restaurant actualRes = service.getWithDishes(RES3.getId());
         assertMatch(actualRes, RES3);
-        DishTestData.assertMatch(actualRes.getDishes(), DishTestData.DISH1, DishTestData.DISH2, DishTestData.DISH3);
+        DishTestData.assertMatch(actualRes.getDishes(), DishTestData.DISH1,  DishTestData.DISH3, DishTestData.DISH2);
     }
 }

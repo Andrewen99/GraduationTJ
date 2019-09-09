@@ -42,7 +42,8 @@ import java.time.LocalTime;
 })
 @Transactional
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
-public class userRestControllerTest {
+public class UserRestControllerTest {
+
     private static final CharacterEncodingFilter CHARACTER_ENCODING_FILTER = new CharacterEncodingFilter();
 
     static {

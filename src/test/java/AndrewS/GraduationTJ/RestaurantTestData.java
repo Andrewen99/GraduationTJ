@@ -17,12 +17,15 @@ public class RestaurantTestData {
 
     public static final Restaurant RES1 = new Restaurant(RES1_ID,"Tokio City Restaurant");
     public static final Restaurant RES2 = new Restaurant(RES1_ID + 1, "Yakitoria Restaurant");
+    public static final Restaurant RES2_UPDATED = new Restaurant(RES1_ID + 1, "Yak Res (Updated)");
     public static final Restaurant RES3 = new Restaurant(RES1_ID + 2, "Restaurant With Food");
 
     public static final RestaurantTo RES1_TO = new RestaurantTo(RES1_ID,"Tokio City Restaurant", 0);
     public static final RestaurantTo RES1_TO_WITH_VOTE = new RestaurantTo(RES1_ID,"Tokio City Restaurant",1);
     public static final RestaurantTo RES2_TO = new RestaurantTo(RES1_ID + 1, "Yakitoria Restaurant", 0);
     public static final RestaurantTo RES3_TO = new RestaurantTo(RES1_ID + 2, "Restaurant With Food", 0);
+    public static final RestaurantTo RES3_TO_WITH_VOTES = new RestaurantTo(RES1_ID + 2, "Restaurant With Food", 2);
+
 
 
     public static void assertMatch(Restaurant actual, Restaurant expected) {

@@ -55,6 +55,10 @@ public class RestaurantService {
         return restaurantRepository.getAll();
     }
 
+    public List<RestaurantTo> getAllTo() {
+        return RestaurantUtil.getAllWithCountOfVotes(restaurantRepository.getAllWithVotes());
+    }
+
     public Restaurant getWithDishes(int id) {
         return restaurantRepository.getWithDishes(id);
     }
@@ -73,6 +77,11 @@ public class RestaurantService {
     public List<RestaurantTo> getAllWithVotes(LocalDate date) {
         List<Restaurant> restaurants = restaurantRepository.getAllWithVotes();
         return RestaurantUtil.getAllWithFilteredCountOfVotes(restaurants, date);
+    }
+
+    public RestaurantTo getInDateWithDishesAndVotes(int id, LocalDate date) {
+        Restaurant restaurant = restaurantRepository.getWithDishesAndVotes(id);
+        return RestaurantUtil.getWithFilteredDishesAndCountOfVotes(restaurant, date);
     }
 
     public List<RestaurantTo> getRestaurantsWithScore(int userId) {
