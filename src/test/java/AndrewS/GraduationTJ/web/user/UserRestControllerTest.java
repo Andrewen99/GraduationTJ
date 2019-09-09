@@ -98,7 +98,7 @@ public class UserRestControllerTest {
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(contentJson(RES3_TO, RES1_TO_WITH_VOTE, RES2_TO));
+                .andExpect(contentJson( RES1_TO_WITH_VOTE, RES2_TO, RES3_TO));
     }
 
     @Test

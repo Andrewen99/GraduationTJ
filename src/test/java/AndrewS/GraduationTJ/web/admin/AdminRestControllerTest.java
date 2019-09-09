@@ -88,7 +88,7 @@ public class AdminRestControllerTest {
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(contentJson(RES3_TO_WITH_VOTES, RES2_TO, RES1_TO));
+                .andExpect(contentJson(RES1_TO, RES2_TO, RES3_TO_WITH_VOTES));
     }
 
     @Test
@@ -108,7 +108,7 @@ public class AdminRestControllerTest {
                 .content(JsonUtil.writeValue(RES2_UPDATED)))
                 .andExpect(status().isNoContent());
 
-        assertMatch(restaurantService.getAll(), RES1, RES3, RES2_UPDATED);
+        assertMatch(restaurantService.getAll(), RES1, RES2_UPDATED, RES3);
     }
 
     @Test
@@ -162,7 +162,7 @@ public class AdminRestControllerTest {
                 .andExpect(status().isNoContent())
                 .andDo(print());
 
-        DishTestData.assertMatch(dishService.getAll(RES3.getId()),DISH1, DISH2 );
+        DishTestData.assertMatch(dishService.getAll(RES3.getId()),DISH2, DISH1 );
     }
 
 }

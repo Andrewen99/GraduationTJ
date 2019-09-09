@@ -35,7 +35,7 @@ class DishServiceTest {
         Dish created = dishService.create(newDish, RES3.getId());
         newDish.setId(created.getId());
         assertMatch(newDish, created);
-        assertMatch( dishService.getAll( RES3.getId() ), DISH1, DISH2, DISH3, newDish);
+        assertMatch( dishService.getAll( RES3.getId() ), newDish,DISH3, DISH2, DISH1);
     }
 
     @Test
@@ -47,7 +47,7 @@ class DishServiceTest {
     @Test
     void delete() throws Exception {
         dishService.delete(DISH1_ID);
-        assertMatch(dishService.getAll(RES3.getId()), DISH2, DISH3);
+        assertMatch(dishService.getAll(RES3.getId()), DISH3, DISH2);
     }
 
     @Test
@@ -77,7 +77,7 @@ class DishServiceTest {
     @Test
     void getAll() throws Exception {
         List<Dish> actual = dishService.getAll(RES3.getId());
-        assertMatch(actual, DISH1,DISH2,DISH3);
+        assertMatch(actual, DISH3,DISH2,DISH1);
     }
 
 
