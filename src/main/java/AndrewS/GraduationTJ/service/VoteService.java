@@ -5,6 +5,8 @@ import AndrewS.GraduationTJ.repository.VoteRepository;
 import AndrewS.GraduationTJ.util.exception.NotFoundException;
 import AndrewS.GraduationTJ.util.exception.VoteExpiredException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -21,6 +23,7 @@ public class VoteService {
     @Autowired
     private VoteRepository voteRepository;
 
+    @CacheEvict(value = "votes",allEntries = true)
     public Vote create( int userId, int resId) throws VoteExpiredException {
         LocalDateTime now = LocalDateTime.now();
         Vote vote = new Vote();
@@ -33,6 +36,7 @@ public class VoteService {
         return voteRepository.save(vote, userId, resId);
     }
 
+    @CacheEvict(value = "votes",allEntries = true)
     public void update(int voteId, int userId, int resId) throws Exception {
         Vote vote = get(voteId);
         Assert.notNull(vote,"vote must not be null");
@@ -50,6 +54,7 @@ public class VoteService {
         }
     }
 
+    @CacheEvict(value = "votes",allEntries = true)
     public void delete(int id) throws NotFoundException {
         checkNotFoundWithId(voteRepository.delete(id),id);
     }
@@ -58,14 +63,18 @@ public class VoteService {
         return checkNotFoundWithId(voteRepository.get(id),id);
     }
 
+    @Cacheable("votes")
     public List<Vote> getInDate(LocalDate date) {
         return voteRepository.getInDate(date);
     }
 
+    @Cacheable("votes")
     public Vote getInDateByUser(LocalDate date, int userId) {
         return voteRepository.getInDateByUser(date, userId);
     }
 
 
+    @CacheEvict(value = "votes",allEntries = true)
+    public void cacheEvict(){}
 
 }

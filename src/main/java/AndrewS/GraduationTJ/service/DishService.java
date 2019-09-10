@@ -6,6 +6,7 @@ import AndrewS.GraduationTJ.repository.DishRepository;
 import AndrewS.GraduationTJ.to.DishTo;
 import AndrewS.GraduationTJ.util.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -21,16 +22,19 @@ public class DishService {
     @Autowired
     private DishRepository repository;
 
+    @CacheEvict(value = {"restaurants", "restaurantsTo"}, allEntries = true)
     public Dish create(Dish dish, int resId) {
         Assert.notNull(dish,"dish must not be null");
         return repository.save(dish, resId);
     }
 
+    @CacheEvict(value = {"restaurants", "restaurantsTo"}, allEntries = true)
     public void update(Dish dish, int resId) throws NotFoundException {
         Assert.notNull(dish,"dish must not be null");
         checkNotFoundWithId(repository.save(dish, resId), dish.getId());
     }
 
+    @CacheEvict(value = {"restaurants", "restaurantsTo"}, allEntries = true)
     public void delete(int id) throws NotFoundException {
         checkNotFoundWithId(repository.delete(id), id);
     }

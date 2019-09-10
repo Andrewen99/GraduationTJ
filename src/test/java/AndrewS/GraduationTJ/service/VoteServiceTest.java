@@ -2,6 +2,7 @@ package AndrewS.GraduationTJ.service;
 
 import AndrewS.GraduationTJ.model.Vote;
 import AndrewS.GraduationTJ.util.exception.VoteExpiredException;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.jdbc.Sql;
@@ -27,6 +28,11 @@ public class VoteServiceTest {
 
     @Autowired
     private VoteService voteService;
+
+    @BeforeEach
+    void cacheEvict(){
+        voteService.cacheEvict();
+    }
 
     @Test
     void create() throws Exception {

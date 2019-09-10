@@ -2,6 +2,7 @@ package AndrewS.GraduationTJ.service;
 
 import AndrewS.GraduationTJ.DishTestData;
 import AndrewS.GraduationTJ.model.Restaurant;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.jdbc.Sql;
@@ -24,6 +25,13 @@ class RestaurantServiceTest {
 
     @Autowired
     private RestaurantService service;
+
+    @BeforeEach
+    void cacheEvict(){
+        service.cacheRestaurantsEvict();
+        service.cacheScoreEvict();
+    }
+
     @Test
     void create() throws Exception {
           Restaurant newRes = new Restaurant(null, "NewRes");
