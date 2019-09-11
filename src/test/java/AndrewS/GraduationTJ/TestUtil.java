@@ -1,8 +1,12 @@
 package AndrewS.GraduationTJ;
 
+import AndrewS.GraduationTJ.model.User;
+import AndrewS.GraduationTJ.web.json.JsonUtil;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
-import AndrewS.GraduationTJ.web.json.JsonUtil;
+import org.springframework.test.web.servlet.request.RequestPostProcessor;
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
+
 
 import java.io.UnsupportedEncodingException;
 import java.util.List;
@@ -23,4 +27,9 @@ public class TestUtil {
     public static <T> List<T> readListFromJsonMvcResult(MvcResult result, Class<T> clazz) throws UnsupportedEncodingException {
         return JsonUtil.readValues(getContent(result), clazz);
     }
+
+    public static RequestPostProcessor userHttpBasic(User user) {
+        return SecurityMockMvcRequestPostProcessors.httpBasic(user.getEmail(), user.getPassword());
+    }
+
 }

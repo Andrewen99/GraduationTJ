@@ -28,9 +28,13 @@ import java.time.LocalDate;
 
 
 import static AndrewS.GraduationTJ.DishTestData.*;
+import static AndrewS.GraduationTJ.TestUtil.userHttpBasic;
+import static AndrewS.GraduationTJ.UserTestData.ADMIN;
+import static AndrewS.GraduationTJ.UserTestData.USER;
 import static org.assertj.core.api.Assertions.assertThat;
 import static AndrewS.GraduationTJ.RestaurantTestData.*;
 import static AndrewS.GraduationTJ.RestaurantTestData.RES3;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -70,12 +74,13 @@ public class AdminRestControllerTest {
         mockMvc = MockMvcBuilders
                 .webAppContextSetup(webApplicationContext)
                 .addFilter(CHARACTER_ENCODING_FILTER)
+                .apply(springSecurity())
                 .build();
     }
 
     @Test
     void getAll() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL))
+        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL).with(userHttpBasic(ADMIN)))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -84,7 +89,7 @@ public class AdminRestControllerTest {
 
     @Test
     void getAllHistory() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + "history"))
+        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + "history").with(userHttpBasic(ADMIN)))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -93,7 +98,7 @@ public class AdminRestControllerTest {
 
     @Test
     void getRestaurant() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + RES3.getId() + "?date=2019-08-15"))
+        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + RES3.getId() + "?date=2019-08-15").with(userHttpBasic(ADMIN)))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
@@ -104,6 +109,7 @@ public class AdminRestControllerTest {
     @Test
     void updateRestaurant() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.put(REST_URL + RES2.getId())
+                .with(userHttpBasic(ADMIN))
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(RES2_UPDATED)))
                 .andExpect(status().isNoContent());
@@ -113,7 +119,7 @@ public class AdminRestControllerTest {
 
     @Test
     void deleteRestaurant() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.delete(REST_URL + RES1_ID))
+        mockMvc.perform(MockMvcRequestBuilders.delete(REST_URL + RES1_ID).with(userHttpBasic(ADMIN)))
                 .andExpect(status().isNoContent())
                 .andDo(print());
         assertMatch(restaurantService.getAll(), RES2, RES3);
@@ -123,6 +129,7 @@ public class AdminRestControllerTest {
     void createRestaurantWithLocation() throws Exception {
         Restaurant created = new Restaurant("Created Restaurant");
         ResultActions action = mockMvc.perform(MockMvcRequestBuilders.post(REST_URL)
+            .with(userHttpBasic(ADMIN))
             .contentType(MediaType.APPLICATION_JSON)
             .content(JsonUtil.writeValue(created)));
 
@@ -137,6 +144,7 @@ public class AdminRestControllerTest {
     void createDish() throws Exception {
         Dish created = new Dish("createdDish", LocalDate.of(2019,9,7),100);
         ResultActions action = mockMvc.perform(MockMvcRequestBuilders.post(REST_URL + RES3.getId() + "/dishes")
+            .with(userHttpBasic(ADMIN))
             .contentType(MediaType.APPLICATION_JSON)
             .content(JsonUtil.writeValue(created)));
 
@@ -149,6 +157,7 @@ public class AdminRestControllerTest {
     @Test
     void updateDish() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.put(REST_URL + RES3.getId() + "/dishes/" + DISH1_ID)
+            .with(userHttpBasic(ADMIN))
             .contentType(MediaType.APPLICATION_JSON)
             .content(JsonUtil.writeValue(DISH1_UPDATED)))
             .andExpect(status().isNoContent());
@@ -158,11 +167,24 @@ public class AdminRestControllerTest {
 
     @Test
     void deleteDish() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.delete(REST_URL + RES3.getId() + "/dishes/" + DISH3.getId()))
+        mockMvc.perform(MockMvcRequestBuilders.delete(REST_URL + RES3.getId() + "/dishes/" + DISH3.getId()).with(userHttpBasic(ADMIN)))
                 .andExpect(status().isNoContent())
                 .andDo(print());
 
         DishTestData.assertMatch(dishService.getAll(RES3.getId()),DISH2, DISH1 );
+    }
+
+    @Test
+    void getUnAuth() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL))
+                .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    void getForbidden() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL)
+                .with(userHttpBasic(USER)))
+                .andExpect(status().isForbidden());
     }
 
 }
