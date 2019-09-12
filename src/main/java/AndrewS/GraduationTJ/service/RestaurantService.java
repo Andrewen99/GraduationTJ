@@ -4,14 +4,15 @@ import AndrewS.GraduationTJ.model.Restaurant;
 import AndrewS.GraduationTJ.repository.RestaurantRepository;
 import AndrewS.GraduationTJ.repository.VoteRepository;
 import AndrewS.GraduationTJ.to.RestaurantTo;
+import AndrewS.GraduationTJ.util.exception.ScoreAccessException;
 import AndrewS.GraduationTJ.util.restaurant.RestaurantUtil;
-import net.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import AndrewS.GraduationTJ.util.exception.NotFoundException;
 import org.springframework.util.Assert;
+
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -30,9 +31,6 @@ public class RestaurantService {
 
     @Autowired
     private VoteRepository voteRepository;
-
-    @Autowired
-    private DishService dishService;
 
 
     @CacheEvict(value = {"restaurants", "restaurantsTo"}, allEntries = true)
@@ -93,14 +91,13 @@ public class RestaurantService {
     }
 
     @Cacheable("score")
-    public List<RestaurantTo> getRestaurantsWithScore(int userId) {
+    public List<RestaurantTo> getRestaurantsWithScore(int userId) throws ScoreAccessException {
         LocalDateTime now = LocalDateTime.now();
-        if(voteRepository.getInDateByUser(now.toLocalDate(),userId)!=null && now.toLocalTime().isAfter(LocalTime.of(11,0))){
-            return getAllWithVotes(now.toLocalDate());
-        }
-        else {
-            return null;
-        }
+        if(voteRepository.getInDateByUser(now.toLocalDate(),userId)!=null ){
+            if (now.toLocalTime().isAfter(LocalTime.of(11,0))) {
+                return getAllWithVotes(now.toLocalDate());
+            } else throw new ScoreAccessException("Results ara available only after 11 A.M.");
+        } else throw new ScoreAccessException("Only users that have voted can see the results");
     }
 
     @CacheEvict(value = "score",allEntries = true)

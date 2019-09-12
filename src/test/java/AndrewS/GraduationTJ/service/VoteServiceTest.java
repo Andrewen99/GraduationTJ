@@ -1,7 +1,7 @@
 package AndrewS.GraduationTJ.service;
 
 import AndrewS.GraduationTJ.model.Vote;
-import AndrewS.GraduationTJ.util.exception.VoteExpiredException;
+import AndrewS.GraduationTJ.util.exception.VoteException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +45,7 @@ public class VoteServiceTest {
     void createTwice() throws Exception {
         LocalDate now = LocalDate.now();
         voteService.create(USER.getId(), RES1.getId());
-        assertThrows(VoteExpiredException.class, () ->
+        assertThrows(VoteException.class, () ->
                 voteService.create(USER.getId(), RES2.getId()));
 
     }
@@ -57,14 +57,14 @@ public class VoteServiceTest {
         try {
 
             if (now.isAfter(LocalTime.of(11,0))) {
-                throw new VoteExpiredException("You can't change your mind after 11");
+                throw new VoteException("You can't change your mind after 11");
             }
 
             voteService.update(VOTE1.getId(), VOTE1.getVoter().getId(), RES1.getId());
             assertMatch(voteService.get(VOTE1_ID), VOTE1_UPDATED);
 
-        } catch (VoteExpiredException v) {
-            assertThrows(VoteExpiredException.class, () ->
+        } catch (VoteException v) {
+            assertThrows(VoteException.class, () ->
                     voteService.update(VOTE1.getId(), VOTE1.getVoter().getId(), RES1.getId()));
         }
     }

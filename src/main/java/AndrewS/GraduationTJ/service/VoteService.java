@@ -3,7 +3,7 @@ package AndrewS.GraduationTJ.service;
 import AndrewS.GraduationTJ.model.Vote;
 import AndrewS.GraduationTJ.repository.VoteRepository;
 import AndrewS.GraduationTJ.util.exception.NotFoundException;
-import AndrewS.GraduationTJ.util.exception.VoteExpiredException;
+import AndrewS.GraduationTJ.util.exception.VoteException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -24,13 +24,13 @@ public class VoteService {
     private VoteRepository voteRepository;
 
     @CacheEvict(value = "votes",allEntries = true)
-    public Vote create( int userId, int resId) throws VoteExpiredException {
+    public Vote create( int userId, int resId) throws VoteException {
         LocalDateTime now = LocalDateTime.now();
         Vote vote = new Vote();
         Vote voteFromUser = voteRepository.getInDateByUser(now.toLocalDate(),userId);
 
         if(voteFromUser != null) {
-            throw new VoteExpiredException("User has already voted today");
+            throw new VoteException("User has already voted today");
         }
         vote.setDate(now.toLocalDate());
         return voteRepository.save(vote, userId, resId);
@@ -50,7 +50,7 @@ public class VoteService {
             ) {
             checkNotFoundWithId(voteRepository.save(vote, userId, resId), vote.getId());
         } else {
-            throw new VoteExpiredException("You can't vote again after 11 o'clock");
+            throw new VoteException("You can't vote again after 11 A.M.");
         }
     }
 
