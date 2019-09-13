@@ -2,11 +2,11 @@
 
 # Set the Tomcat before running the app:
 
- 1)Open Run menu  
- 2)Choose Edit configurations
- 3)Tomcat-local
- 4)press fix button
- 5)Change application Context to:
+ <br>1)Open Run menu</br>  
+ <br>2)Choose Edit configurations</br>
+ <br>3)Tomcat-local</br>
+ <br>4)press fix button</br>
+ <br>5)Change application Context to:</br>
  
  ### Application Context: /GraduationTJ
  
