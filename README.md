@@ -31,7 +31,7 @@ curl --user admin@gmail.com:admin --data '{"id":null,"name":"Updated Restaurant 
 #### delete Restaurant 100002
 curl --user admin@gmail.com:admin -X DELETE http://localhost:8080/GraduationTJ/rest/admin/restaurants/100002
 
-<br/>
+<br></br>
 
 ##                  ADMIN Requests for Dishes:
 
