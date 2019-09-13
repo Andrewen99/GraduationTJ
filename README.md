@@ -3,6 +3,7 @@
 
 #                                   ADMIN requests
 
+<br/>
 ##                  ADMIN Requests for Restaurants:
 
 #### get All Restaurants with Dishes for today
@@ -29,7 +30,7 @@ curl --user admin@gmail.com:admin --data '{"id":null,"name":"Updated Restaurant 
 #### delete Restaurant 100002
 curl --user admin@gmail.com:admin -X DELETE http://localhost:8080/GraduationTJ/rest/admin/restaurants/100002
 
-##
+<br/>
 ##                  ADMIN Requests for Dishes:
 
 ## get Dish 100007
@@ -44,8 +45,9 @@ curl --user admin@gmail.com:admin --data '{"name":"Updated California","date":nu
 ##delete Dish 100007 (From restaurant 100004)
 curl --user admin@gmail.com:admin -X DELETE http://localhost:8080/GraduationTJ/rest/admin/restaurants/100004/dishes/100007
 
-##
-##
+<br/>
+<br/>
+<br/>
 #                                   USER requests
 
 #### get All Restaurants with Dishes for today
