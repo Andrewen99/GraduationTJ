@@ -32,9 +32,9 @@ public class UserRestController {
     RestaurantService restaurantService;
 
     @GetMapping
-    public List<Restaurant> getAll() {
+    public List<RestaurantTo> getAll() {
         log.info("{User} getAll");
-        return restaurantService.getAll();
+        return restaurantService.getAllWithDishes();
     }
 
     @GetMapping("/{id}")
@@ -49,14 +49,14 @@ public class UserRestController {
         return restaurantService.getRestaurantsWithScore(SecurityUtil.authUserId());
     }
 
-    @PostMapping("/{id}")
-    public Vote createVote(@PathVariable int id) throws Exception {
-        log.info("{User} create Vote for Restaurant with id: " + id);
-        return voteService.create(SecurityUtil.authUserId(), id);
+    @PostMapping("/voting")
+    public Vote createVote(@RequestParam int resId) throws Exception {
+        log.info("{User} create Vote for Restaurant with id: " + resId);
+        return voteService.create(SecurityUtil.authUserId(), resId);
     }
 
-    @PutMapping("/{id}/{voteId}")
-    public void updateVote(@PathVariable(name = "id") int resId,@PathVariable int voteId) throws Exception{
+    @PutMapping("/voting")
+    public void updateVote(@RequestParam int resId, @RequestParam int voteId) throws Exception{
         log.info("{User} update Vote(id = {}) for Restaurant with id: {}" + voteId, resId);
         voteService.update(voteId, SecurityUtil.authUserId(),resId);
     }

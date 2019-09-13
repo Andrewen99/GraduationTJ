@@ -84,7 +84,7 @@ public class AdminRestControllerTest {
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(contentJson(RES1, RES2, RES3));
+                .andExpect(contentJson(RES1_TO, RES2_TO, RES3_TO));
     }
 
     @Test

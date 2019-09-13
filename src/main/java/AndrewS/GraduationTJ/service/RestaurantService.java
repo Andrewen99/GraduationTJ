@@ -63,6 +63,10 @@ public class RestaurantService {
         return RestaurantUtil.getAllWithCountOfVotes(restaurantRepository.getAllWithVotes());
     }
 
+    public List<RestaurantTo> getAllWithDishes() {
+        return RestaurantUtil.getAllWithFilteredInDateDishes(restaurantRepository.getAllWithDishes(), LocalDate.now());
+    }
+
     public Restaurant getWithDishes(int id) {
         return restaurantRepository.getWithDishes(id);
     }

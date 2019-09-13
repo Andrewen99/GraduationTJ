@@ -16,7 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.print.attribute.standard.Media;
+
 import java.net.URI;
 import java.time.LocalDate;
 import java.util.List;
@@ -40,15 +40,15 @@ public class AdminRestController {
     DishService dishService;
 
     @GetMapping
-    public List<Restaurant> getAll() {
+    public List<RestaurantTo> getAll() {
         log.info("{Admin} getAll ");
-        return restaurantService.getAll();
+        return restaurantService.getAllWithDishes();
     }
 
     @GetMapping("/history")
     public List<RestaurantTo> getAllHistory(@RequestParam(required = false) String date) {
         if (date== null) {
-            log.info("{Admin} getAllHistory ");
+            log.info("{Admin} getAllHistory (With all of their votes) ");
             return restaurantService.getAllTo();
         } else {
             log.info("{Admin} getAllHistory with date: {}", date);

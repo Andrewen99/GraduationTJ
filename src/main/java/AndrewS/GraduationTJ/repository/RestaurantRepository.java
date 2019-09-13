@@ -45,5 +45,7 @@ public class RestaurantRepository {
         return repository.getAllWithVotes();
     }
 
+    public List<Restaurant> getAllWithDishes() {return repository.getAllWithDishes();}
+
 
 }

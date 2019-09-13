@@ -1,10 +1,9 @@
 package AndrewS.GraduationTJ.web.user;
 
-import AndrewS.GraduationTJ.model.Restaurant;
+
 import AndrewS.GraduationTJ.model.Vote;
 import AndrewS.GraduationTJ.service.RestaurantService;
 import AndrewS.GraduationTJ.service.VoteService;
-import AndrewS.GraduationTJ.to.RestaurantTo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -20,7 +19,6 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 
 import static AndrewS.GraduationTJ.TestUtil.*;
 import static AndrewS.GraduationTJ.UserTestData.USER;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -89,7 +87,7 @@ public class UserRestControllerTest {
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(contentJson(RES1, RES2, RES3));
+                .andExpect(contentJson(RES1_TO, RES2_TO, RES3_TO));
     }
 
     @Test
@@ -122,16 +120,17 @@ public class UserRestControllerTest {
     @Test
     void createTwice() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post(REST_URL + RES1_ID).with(userHttpBasic(USER)));
-        assertThrows(Exception.class, () ->
-                mockMvc.perform((MockMvcRequestBuilders.post(REST_URL + RES1_ID).with(userHttpBasic(USER)))));
+        mockMvc.perform(MockMvcRequestBuilders.post(REST_URL + RES1_ID).with(userHttpBasic(USER)))
+                .andExpect(status().isForbidden());
+
     }
 
     @Test
     void updateVote() throws Exception {
        mockMvc.perform(MockMvcRequestBuilders.post(REST_URL + RES1_ID).with(userHttpBasic(USER)));
         if (LocalTime.now().isAfter(LocalTime.of(11,0))) {
-            assertThrows(Exception.class, () ->
-                    mockMvc.perform(MockMvcRequestBuilders.put(REST_URL + RES2.getId() + "/" + CREATED_VOTE_ID).with(userHttpBasic(USER))) );
+                    mockMvc.perform(MockMvcRequestBuilders.put(REST_URL + RES2.getId() + "/" + CREATED_VOTE_ID).with(userHttpBasic(USER)))
+                    .andExpect(status().isForbidden());
         } else {
             mockMvc.perform(MockMvcRequestBuilders.put(REST_URL + RES2.getId() + "/" + CREATED_VOTE_ID).with(userHttpBasic(USER)));
             assertMatch(voteService.get(CREATED_VOTE_ID), CREATED_VOTE_UPDATED);
