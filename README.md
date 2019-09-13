@@ -2,7 +2,7 @@
 
 # Set the Tomcat before running the app:
 
- <br>1)Open Run menu</br>  
+ 1)Open Run menu 
  <br>2)Choose Edit configurations</br>
  <br>3)Tomcat-local</br>
  <br>4)press fix button</br>
