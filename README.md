@@ -46,16 +46,16 @@ curl --user admin@gmail.com:admin -X DELETE http://localhost:8080/GraduationTJ/r
 
 ##                  ADMIN Requests for Dishes:
 
-## get Dish 100007
+### get Dish 100007
 curl --user admin@gmail.com:admin http://localhost:8080/GraduationTJ/rest/admin/restaurants/dishes/100007
 
-## create Dish for Restaurant 100004
+### create Dish for Restaurant 100004
 curl --user admin@gmail.com:admin --data '{"name":"Tasty Dish","date":null,"price":21}' -H "Content-Type: application/json" -X POST http://localhost:8080/GraduationTJ/rest/admin/restaurants/100004/dishes
 
-## update Dish 100007
+### update Dish 100007
 curl --user admin@gmail.com:admin --data '{"name":"Updated California","date":null,"price":21}' -H "Content-Type: application/json" -X PUT http://localhost:8080/GraduationTJ/rest/admin/restaurants/100004/dishes/100007
 
-##delete Dish 100007 (From restaurant 100004)
+### delete Dish 100007 (From restaurant 100004)
 curl --user admin@gmail.com:admin -X DELETE http://localhost:8080/GraduationTJ/rest/admin/restaurants/100004/dishes/100007
 
 <br></br>
