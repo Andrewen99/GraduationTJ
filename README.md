@@ -1,5 +1,17 @@
 # Documentation
 
+# Set the Tomcat before running the app:
+
+ 1)Open Run menu  
+ 2)Choose Edit configurations
+ 3)Tomcat-local
+ 4)press fix button
+ 5)Change application Context to:
+ 
+ ### Application Context: /GraduationTJ
+ 
+
+
 
 #                                   ADMIN requests
 
